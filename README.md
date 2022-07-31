@@ -111,7 +111,10 @@
    - Properties: id, contain, createdTime
    - Add relation with the User
 2. Generate changelog diff and update change changelog master
-3. Update web UI for the posts
-   - Create select/create user page
-   - CRUD post
+
+## Update web UI for the posts
+
+1. Create thymeleaf layout
+
+   
 

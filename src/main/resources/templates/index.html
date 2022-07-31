@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+<head th:replace="~{template/layout :: head('Home Page')}">
 </head>
 <body>
-<h1>Welcome to my app with liquibase</h1>
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="u : ${users}">
-    <td th:text="${u.id}">1</td>
-    <td th:text="${u.name}">test s</td>
-  </tr>
-  </tbody>
-</table>
+
+<div id="content" th:fragment="~{template/layout :: content}">
+  <h1>Spring forum</h1>
+  <div th:if="${user} ne null and ${user.username} ne null">
+    <h2 th:text="|Welcome ${user.username}|"></h2>
+  </div>
+  <form th:unless="${user} ne null and ${user.username} ne null" action="#"
+        th:action="@{/create-user}" th:object="${user}" method="post">
+    <fieldset>
+      <legend>Select a username</legend>
+      <label for="username">Username: </label><br>
+      <input type="text" id="username" name="username">
+      <input type="submit">
+    </fieldset>
+  </form>
+
+</div>
 </body>
 </html>

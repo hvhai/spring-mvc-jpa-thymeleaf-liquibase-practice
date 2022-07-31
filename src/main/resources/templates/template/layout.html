@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title th:text="${title}"> Layout Page </title>
+  <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+  <script src="https://unpkg.com/htmx.org@1.8.0"
+          integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc"
+          crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="content" th:fragment="content">
+    <h1>Layout content</h1>
+  </div>
+</body>
+</html>
