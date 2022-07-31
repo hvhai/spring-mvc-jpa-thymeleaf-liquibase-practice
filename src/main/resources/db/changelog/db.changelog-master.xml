@@ -10,4 +10,5 @@
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
 
   <include file="db/migrations/20220731042837_changelog.xml" relativeToChangelogFile="false"/>
+  <include file="db/migrations/20220731102723_changelog.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

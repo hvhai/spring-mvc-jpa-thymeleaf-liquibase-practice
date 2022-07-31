@@ -106,3 +106,12 @@
    ```
 7. Run the app and check.
 
+## Add ``post`` to app
+1. Create Post domain
+   - Properties: id, contain, createdTime
+   - Add relation with the User
+2. Generate changelog diff and update change changelog master
+3. Update web UI for the posts
+   - Create select/create user page
+   - CRUD post
+
