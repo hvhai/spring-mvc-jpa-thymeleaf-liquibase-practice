@@ -28,7 +28,9 @@ public class IndexController {
   @ModelAttribute("user")
   public UserDto getCurrentUser(HttpServletRequest request) {
     var currentUser = request.getSession().getAttribute(CURRENT_USER);
-    if (currentUser == null) return new UserDto();
+    if (currentUser == null) {
+      return UserDto.builder().build();
+    }
     return (UserDto) currentUser;
   }
 
@@ -39,7 +41,15 @@ public class IndexController {
 
   @PostMapping(value = "create-user")
   public String createUser(UserDto user, HttpServletRequest request) {
-    request.getSession().setAttribute(CURRENT_USER, user);
+    if (userService.isExist(user.getUsername())) {
+      var existUser = userService.readUserByName(user.getUsername());
+      request.getSession().setAttribute(CURRENT_USER, UserDto.builder().username(existUser.getName()).build());
+    } else {
+      User userIn = new User();
+      userIn.setName(user.getUsername());
+      var createdUser = userService.createUser(userIn);
+      request.getSession().setAttribute(CURRENT_USER, UserDto.builder().username(createdUser.getName()).build());
+    }
     return "redirect:/";
   }
 }
