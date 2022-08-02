@@ -7,18 +7,57 @@
 
 <div id="content" th:fragment="~{template/layout :: content}">
   <h1>Spring forum</h1>
-  <div th:if="${user} ne null and ${user.username} ne null">
-    <h2 th:text="|Welcome ${user.username}|"></h2>
+  <div id="header">
+    <div th:if="${user} ne null and ${user.username} ne null">
+      <h2 th:text="|Welcome ${user.username}|"></h2>
+    </div>
+    <form th:unless="${user} ne null and ${user.username} ne null" action="#"
+          th:action="@{/create-user}" th:object="${user}" method="post">
+      <fieldset>
+        <legend>Select a username</legend>
+        <label for="username">Username: </label><br>
+        <input type="text" id="username" name="username">
+        <input type="submit">
+      </fieldset>
+    </form>
   </div>
-  <form th:unless="${user} ne null and ${user.username} ne null" action="#"
-        th:action="@{/create-user}" th:object="${user}" method="post">
+
+  <div id="postSection">
     <fieldset>
-      <legend>Select a username</legend>
-      <label for="username">Username: </label><br>
-      <input type="text" id="username" name="username">
-      <input type="submit">
+      <legend>All Post</legend>
+      <dl>
+        <dt><i>2022-07-29 23:29:45</i> || <b>Hai</b></dt>
+        <dd>A large feline inhabiting Bodmin Moor.</dd>
+      </dl>
+      <ul>
+        <li>Milk</li>
+        <li>Cheese
+        </li>
+      </ul>
+      <form action="#" method="post">
+        <input type="text" name="comment">
+        <input type="submit" value="Comment">
+      </form>
+      <hr>
+
+      <dl>
+        <dt><i>2022-07-29 23:29:45</i> || <b>Hai</b></dt>
+        <dd>A large feline inhabiting Bodmin Moor.</dd>
+      </dl>
+      <ul>
+        <li>Milk</li>
+        <li>Cheese
+        </li>
+      </ul>
+      <form action="#" method="post">
+        <input type="text" name="comment">
+        <input type="submit" value="Comment">
+      </form>
+      <hr>
     </fieldset>
-  </form>
+
+
+  </div>
 
 </div>
 </body>
