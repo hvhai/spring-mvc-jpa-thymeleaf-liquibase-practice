@@ -18,7 +18,7 @@ public class PostService implements IPostService {
   }
 
   @Override
-  public Post cratePost(Post post) {
+  public Post createPost(Post post) {
     return postRepository.save(post);
   }
 }
