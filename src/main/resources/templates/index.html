@@ -8,10 +8,11 @@
 <div id="content" th:fragment="~{template/layout :: content}">
   <h1>Spring forum</h1>
   <div id="header">
-    <div th:if="${user} ne null and ${user.username} ne null">
+    <div th:if="${isAuthenticated} eq true">
       <h2 th:text="|Welcome ${user.username}|"></h2>
+      <a th:href="@{/logout}">LogOut</a>
     </div>
-    <form th:unless="${user} ne null and ${user.username} ne null" action="#"
+    <form th:unless="${isAuthenticated} eq true" action="#"
           th:action="@{/create-user}" th:object="${user}" method="post">
       <fieldset>
         <legend>Select a username</legend>
@@ -22,7 +23,18 @@
     </form>
   </div>
 
-  <div id="postSection">
+  <div id="newPost" th:if="${isAuthenticated} eq true" >
+    <fieldset>
+      <legend>What do you think?</legend>
+      <form action="#" method="post">
+        <input type="text" name="content" >
+        <input type="submit" value="Post">
+      </form>
+    </fieldset>
+
+  </div>
+
+  <div id="allPost">
     <fieldset>
       <legend>All Post</legend>
       <dl>
@@ -34,7 +46,7 @@
         <li>Cheese
         </li>
       </ul>
-      <form action="#" method="post">
+      <form action="#" method="post" th:if="${isAuthenticated} eq true">
         <input type="text" name="comment">
         <input type="submit" value="Comment">
       </form>
@@ -49,7 +61,7 @@
         <li>Cheese
         </li>
       </ul>
-      <form action="#" method="post">
+      <form action="#" method="post" th:if="${isAuthenticated} eq true">
         <input type="text" name="comment">
         <input type="submit" value="Comment">
       </form>

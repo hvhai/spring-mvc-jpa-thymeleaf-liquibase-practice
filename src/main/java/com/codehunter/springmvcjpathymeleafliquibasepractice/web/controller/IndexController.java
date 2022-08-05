@@ -25,6 +25,12 @@ public class IndexController {
     return userService.getAllUser();
   }
 
+  @ModelAttribute("isAuthenticated")
+  public Boolean isAuthenticated(HttpServletRequest request) {
+    var currentUser = request.getSession().getAttribute(CURRENT_USER);
+    return currentUser != null;
+  }
+
   @ModelAttribute("user")
   public UserDto getCurrentUser(HttpServletRequest request) {
     var currentUser = request.getSession().getAttribute(CURRENT_USER);
@@ -43,13 +49,21 @@ public class IndexController {
   public String createUser(UserDto user, HttpServletRequest request) {
     if (userService.isExist(user.getUsername())) {
       var existUser = userService.readUserByName(user.getUsername());
-      request.getSession().setAttribute(CURRENT_USER, UserDto.builder().username(existUser.getName()).build());
+      request.getSession()
+          .setAttribute(CURRENT_USER, UserDto.builder().username(existUser.getName()).build());
     } else {
       User userIn = new User();
       userIn.setName(user.getUsername());
       var createdUser = userService.createUser(userIn);
-      request.getSession().setAttribute(CURRENT_USER, UserDto.builder().username(createdUser.getName()).build());
+      request.getSession()
+          .setAttribute(CURRENT_USER, UserDto.builder().username(createdUser.getName()).build());
     }
+    return "redirect:/";
+  }
+
+  @GetMapping(value = "logout")
+  public String logout(HttpServletRequest request) {
+    request.getSession().invalidate();
     return "redirect:/";
   }
 }
